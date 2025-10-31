@@ -13,19 +13,16 @@ import androidx.compose.ui.layout.ParentDataModifier
 
 
 fun FormDataDiri(modifier: Modifier = Modifier) {
+    // variabel-variabel untuk mengingat nilai masukan dari keyboard
     var textNama by remember { mutableStateOf("") }
+    var textAlamat by remember { mutableStateOf("") }
+    var textJK by remember { mutableStateOf("") }
 
-    Column(
-        modifier = modifier.padding(top = 50.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        OutlinedTextField(
-            value = textNama,
-            onValueChange = { textNama = it },
-            label = { Text("Nama Lengkap") },
-            singleLine = true,
-            modifier = Modifier.width(250.dp)
-        )
-    }
+    // variabel-variabel untuk menyimpan data yang diperoleh dari komponen UI
+    var nama by remember { mutableStateOf("") }
+    var alamat by remember { mutableStateOf("") }
+    var jenis by remember { mutableStateOf("") }
+
+    val gender: List<String> = listOf("Laki-laki", "Perempuan")
 }
 
