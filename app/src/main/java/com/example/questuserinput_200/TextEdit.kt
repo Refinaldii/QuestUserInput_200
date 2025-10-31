@@ -14,7 +14,17 @@ import com.example.questuserinput_200.R
 
 @Composable
 fun FormDataDiri(modifier: Modifier = Modifier) {
+    // variabel-variabel untuk mengingat nilai masukan dari keyboard
     var textNama by remember { mutableStateOf("") }
+    var textAlamat by remember { mutableStateOf("") }
+    var textJK by remember { mutableStateOf("") }
+
+    // variabel-variabel untuk menyimpan data yang diperoleh dari komponen UI
+    var nama by remember { mutableStateOf("") }
+    var alamat by remember { mutableStateOf("") }
+    var jenis by remember { mutableStateOf("") }
+
+    val gender: List<String> = listOf("Laki-laki", "Perempuan")
 
     Column(
         modifier = Modifier.padding(top = 50.dp),
@@ -29,77 +39,75 @@ fun FormDataDiri(modifier: Modifier = Modifier) {
             label = { Text(text = "Nama Lengkap") },
             onValueChange = { textNama = it }
         )
-    }
-}
-val gender: List<String> = listOf("Laki-laki", "Perempuan")
-var textJK by remember { mutableStateOf("") }
 
-Row {
-    gender.forEach { item ->
-        Row(
-            modifier = Modifier.selectable(
-                selected = textJK == item,
-                onClick = { textJK = item }
-            ),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            RadioButton(
-                selected = textJK == item,
-                onClick = { textJK = item }
-            )
-            Text(item)
+        Row {
+            gender.forEach { item ->
+                Row(
+                    modifier = Modifier.selectable(
+                        selected = textJK == item,
+                        onClick = { textJK = item }
+                    ),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    RadioButton(
+                        selected = textJK == item,
+                        onClick = { textJK = item }
+                    )
+                    Text(item)
+                }
+            }
         }
-    }
-}
-var textAlamat by remember { mutableStateOf("") }
 
-OutlinedTextField(
-value = textAlamat,
-singleLine = true,
-modifier = Modifier.width(250.dp),
-label = { Text(text = "Alamat Lengkap") },
-onValueChange = { textAlamat = it }
-)
+        OutlinedTextField(
+            value = textAlamat,
+            singleLine = true,
+            modifier = Modifier.width(250.dp),
+            label = { Text(text = "Alamat Lengkap") },
+            onValueChange = { textAlamat = it }
+        )
 
-Divider(
-modifier = Modifier.padding(vertical = 8.dp),
-thickness = 1.dp,
-color = Color.DarkGray
-)
+        Divider(
+            modifier = Modifier.padding(
+                bottom = dimensionResource(R.dimen.padding_medium),
+                top = dimensionResource(R.dimen.padding_medium)
+            ),
+            thickness = dimensionResource(R.dimen.divider_tipis),
+            color = Color.DarkGray
+        )
 
-var nama by remember { mutableStateOf("") }
-var alamat by remember { mutableStateOf("") }
-var jenis by remember { mutableStateOf("") }
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            enabled = textAlamat.isNotEmpty(),
+            onClick = {
+                nama = textNama
+                jenis = textJK
+                alamat = textAlamat
+            }
+        ) {
+            Text(text = stringResource(R.string.submit))
+        }
 
-Button(
-modifier = Modifier.fillMaxWidth(),
-enabled = textAlamat.isNotEmpty(),
-onClick = {
-    nama = textNama
-    jenis = textJK
-    alamat = textAlamat
-}
-) {
-    Text(text = "Submit")
-}
+        Divider(
+            modifier = Modifier.padding(
+                bottom = dimensionResource(R.dimen.padding_medium),
+                top = dimensionResource(R.dimen.padding_medium)
+            ),
+            thickness = dimensionResource(R.dimen.divider_tipis),
+            color = Color.DarkGray
+        )
 
-Divider(
-modifier = Modifier.padding(vertical = 8.dp),
-thickness = 1.dp,
-color = Color.DarkGray
-)
-ElevatedCard(
-elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
-colors = CardDefaults.cardColors(containerColor = Color.Black),
-modifier = Modifier
-.height(100.dp)
-.width(300.dp)
-) {
-    Column(
-        modifier = Modifier.padding(horizontal = 5.dp, vertical = 15.dp)
-    ) {
-        Text(text = "Nama    : $nama", color = Color.White)
-        Text(text = "Gender  : $jenis", color = Color.White)
-        Text(text = "Alamat  : $alamat", color = Color.White)
+        ElevatedCard(
+            elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
+            colors = CardDefaults.cardColors(containerColor = Color.Black),
+            modifier = Modifier
+                .height(100.dp)
+                .width(300.dp)
+        ) {
+            Column(modifier = Modifier.padding(horizontal = 5.dp, vertical = 15.dp),) {
+                Text(text = "Nama    : " + nama, color = Color.White)
+                Text(text = "Gender  : " + jenis, color = Color.White)
+                Text(text = "Alamat  : " + alamat, color = Color.White)
+            }
+        }
     }
 }
