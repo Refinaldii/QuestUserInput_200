@@ -67,3 +67,24 @@ thickness = 1.dp,
 color = Color.DarkGray
 )
 
+var nama by remember { mutableStateOf("") }
+var alamat by remember { mutableStateOf("") }
+var jenis by remember { mutableStateOf("") }
+
+Button(
+modifier = Modifier.fillMaxWidth(),
+enabled = textAlamat.isNotEmpty(),
+onClick = {
+    nama = textNama
+    jenis = textJK
+    alamat = textAlamat
+}
+) {
+    Text(text = "Submit")
+}
+
+Divider(
+modifier = Modifier.padding(vertical = 8.dp),
+thickness = 1.dp,
+color = Color.DarkGray
+)
