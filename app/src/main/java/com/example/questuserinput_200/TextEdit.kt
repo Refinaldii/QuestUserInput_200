@@ -51,4 +51,19 @@ Row {
         }
     }
 }
+var textAlamat by remember { mutableStateOf("") }
+
+OutlinedTextField(
+value = textAlamat,
+singleLine = true,
+modifier = Modifier.width(250.dp),
+label = { Text(text = "Alamat Lengkap") },
+onValueChange = { textAlamat = it }
+)
+
+Divider(
+modifier = Modifier.padding(vertical = 8.dp),
+thickness = 1.dp,
+color = Color.DarkGray
+)
 
